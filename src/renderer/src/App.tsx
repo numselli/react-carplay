@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Settings from "./components/Settings";
 import './App.css'
-import Info from "./components/Info";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Carplay from './components/Carplay'
@@ -73,17 +72,7 @@ function App() {
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/settings"} element={<Settings settings={settings!}/>} />
-          <Route path={"/info"} element={<Info />} />
-          <Route path={"/camera"} element={<Camera settings={settings!}/>} />
         </Routes>
-        <Modal
-          open={reverse}
-          onClick={()=> setReverse(false)}
-        >
-          <Box sx={style}>
-            <Camera settings={settings}/>
-          </Box>
-        </Modal>
       </div>
     </Router>
 
