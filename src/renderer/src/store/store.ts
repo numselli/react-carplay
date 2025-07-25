@@ -1,13 +1,11 @@
 import { create } from 'zustand'
 import { ExtraConfig } from "../../../main/Globals";
 import { io } from 'socket.io-client'
-import { Stream } from "socketmost/dist/modules/Messages";
 
 interface CarplayStore {
   settings: null | ExtraConfig,
   saveSettings: (settings: ExtraConfig) => void
   getSettings: () => void
-  stream: (stream: Stream) => void
 }
 
 interface StatusStore {

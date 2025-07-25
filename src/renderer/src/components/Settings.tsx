@@ -21,7 +21,6 @@ import {
   Slide
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2';
-import MostStream from './MostStream'
 import { TransitionProps } from '@mui/material/transitions/transition'
 import { KeyBindings } from "./KeyBindings";
 import { Canbus } from "./Canbus";
@@ -87,23 +86,6 @@ function Settings({ settings }: SettingsProps) {
           <FormControl>
             <FormControlLabel id={'kiosk'}  label={'KIOSK'} control={<Checkbox checked={activeSettings.kiosk} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               settingsChange('kiosk', event.target.checked)
-            }}/>} />
-          </FormControl>
-        </Grid>
-      )
-    },
-    piMost: () => {
-      return (
-        <Grid key={'pimost'} xs={4}>
-          <FormControl>
-            <FormControlLabel id={'pimost'}  label={'PIMOST'} control={<Checkbox disabled={true} checked={false} onChange={(_: React.ChangeEvent<HTMLInputElement>) => {
-              // settingsChange('piMost', event.target.checked)
-              if(activeSettings.piMost) {
-                settingsChange('piMost', false)
-                settingsChange('most', {})
-              } else {
-                setOpenStream(true)
-              }
             }}/>} />
           </FormControl>
         </Grid>
@@ -209,18 +191,6 @@ function Settings({ settings }: SettingsProps) {
             <Button onClick={() => setOpenCan(true)}>CANBUS</Button>
           </Box>
         </Grid>
-        <Dialog
-        open={openStream}
-        TransitionComponent={Transition}
-        keepMounted
-        PaperProps={{style: {minHeight: '80%'}}}
-        onClose={() => setOpenStream(false)}
-        >
-          <DialogTitle>{'PiMost Stream Settings'}</DialogTitle>
-          <DialogContent >
-            <MostStream setSettings={settingsChange} setOpenStream={setOpenStream}/>
-          </DialogContent>
-        </Dialog>
         <Dialog
           open={openCan}
           TransitionComponent={Transition}

@@ -34,10 +34,8 @@ const EXTRA_CONFIG: ExtraConfig = {
   ...DEFAULT_CONFIG,
   kiosk: true,
   microphone: '',
-  piMost: false,
   canbus: false,
   bindings: DEFAULT_BINDINGS,
-  most: {},
   canConfig: {}
 }
 
@@ -199,8 +197,6 @@ app.whenReady().then(() => {
 
   ipcMain.on('saveSettings', saveSettings)
 
-  // ipcMain.on('startStream', startMostStream)
-
   ipcMain.on('quit', quit)
 
   // Default open or close DevTools by F12 in development
@@ -225,13 +221,6 @@ const saveSettings = (settings: ExtraConfig) => {
   app.relaunch()
   app.exit()
 }
-
-// const startMostStream = (_: IpcMainEvent, most: Stream) => {
-//   console.log("stream request")
-//   if(piMost) {
-//     piMost.stream(most)
-//   }
-// }
 
 const quit = (_: IpcMainEvent) => {
   app.quit()
