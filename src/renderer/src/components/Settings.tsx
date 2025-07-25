@@ -23,7 +23,6 @@ import {
 import Grid from '@mui/material/Unstable_Grid2';
 import { TransitionProps } from '@mui/material/transitions/transition'
 import { KeyBindings } from "./KeyBindings";
-import { Canbus } from "./Canbus";
 import { useCarplayStore } from "../store/store";
 
 interface SettingsProps {
@@ -42,9 +41,7 @@ const Transition = React.forwardRef(function Transition(
 function Settings({ settings }: SettingsProps) {
   const [activeSettings, setActiveSettings] = useState<ExtraConfig>(settings)
   const [microphones, setMicrophones] = useState<MediaDeviceInfo[]>([])
-  const [openStream, setOpenStream] = useState<boolean>(false)
   const [openBindings, setOpenBindings] = useState<boolean>(false)
-  const [openCan, setOpenCan] = useState<boolean>(false)
   const saveSettings = useCarplayStore(state => state.saveSettings)
 
   const settingsChange = (key, value) => {
@@ -188,21 +185,8 @@ function Settings({ settings }: SettingsProps) {
           <Box>
             <Button onClick={() => saveSettings(activeSettings)}>SAVE</Button>
             <Button onClick={() => setOpenBindings(true)}>BINDINGS</Button>
-            <Button onClick={() => setOpenCan(true)}>CANBUS</Button>
           </Box>
         </Grid>
-        <Dialog
-          open={openCan}
-          TransitionComponent={Transition}
-          keepMounted
-          PaperProps={{style: {minHeight: '80%'}}}
-          onClose={() => setOpenCan(false)}
-        >
-          <DialogTitle>{'Canbus Settings'}</DialogTitle>
-          <DialogContent >
-            <Canbus settings={activeSettings} setSettings={settingsChange} setOpenCan={setOpenCan}/>
-          </DialogContent>
-        </Dialog>
         <Dialog
           open={openBindings}
           TransitionComponent={Transition}
