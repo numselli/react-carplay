@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Carplay from './components/Carplay'
 import { useCarplayStore } from "./store/store";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // rm -rf node_modules/.vite; npm run dev
 
@@ -22,6 +24,14 @@ const style = {
 };
 
 function App() {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = createTheme({
+    palette: {
+      mode: prefersDarkMode ? 'dark': "light",
+    }
+  });
+  
   const [receivingVideo, setReceivingVideo] = useState(false)
   const [commandCounter, setCommandCounter] = useState(0)
   const [keyCommand, setKeyCommand] = useState('')
@@ -57,22 +67,23 @@ function App() {
   }
 
   return (
-    <Router>
-      <div
-        style={{ height: '100%', touchAction: 'none' }}
-        id={'main'}
-        className="App"
+    <ThemeProvider theme={theme}>
+      <Router>
+        <div
+          style={{ height: '100%', touchAction: 'none' }}
+          id={'main'}
+          className="App"
 
-      >
-        <Nav receivingVideo={receivingVideo} settings={settings}/>
-        {settings ? <Carplay  receivingVideo={receivingVideo} setReceivingVideo={setReceivingVideo} settings={settings} command={keyCommand} commandCounter={commandCounter}/> : null}
-        <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"/settings"} element={<Settings settings={settings!}/>} />
-        </Routes>
-      </div>
-    </Router>
-
+        >
+          <Nav receivingVideo={receivingVideo} settings={settings}/>
+          {settings ? <Carplay  receivingVideo={receivingVideo} setReceivingVideo={setReceivingVideo} settings={settings} command={keyCommand} commandCounter={commandCounter}/> : null}
+          <Routes>
+            <Route path={"/"} element={<Home />} />
+            <Route path={"/settings"} element={<Settings settings={settings!}/>} />
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   )
 }
 
