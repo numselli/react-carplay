@@ -9,20 +9,6 @@ import { useCarplayStore } from "./store/store";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-// rm -rf node_modules/.vite; npm run dev
-
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  height: '95%',
-  width: '95%',
-  boxShadow: 24,
-  display: "flex"
-};
-
 function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
