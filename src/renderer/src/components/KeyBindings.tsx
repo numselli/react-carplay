@@ -1,8 +1,7 @@
 import { ExtraConfig } from "../../../main/Globals";
-import { Box, Button, Modal, Paper, styled, Typography } from "@mui/material";
-import Grid from '@mui/material/Unstable_Grid2'
+import { Box, Button, Modal, Paper, styled, Typography, CircularProgress } from "@mui/material";
+import { Grid } from '@mui/material';
 import { useEffect, useState } from "react";
-import { InfinitySpin } from "react-loader-spinner";
 
 interface KeyBindingsProps {
   settings: ExtraConfig,
@@ -83,7 +82,7 @@ export function KeyBindings({ settings, updateKey }: KeyBindingsProps) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Press Key For {keyToBind}
           </Typography>
-          <InfinitySpin color={'blue'}/>
+          <CircularProgress/>
         </Box>
       </Modal>
     </Grid>

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { RotatingLines } from 'react-loader-spinner'
 //import './App.css'
 import {
   findDevice,
@@ -13,7 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ExtraConfig} from "../../../main/Globals";
 import { useCarplayStore, useStatusStore } from "../store/store";
 import { InitEvent } from './worker/render/RenderEvents'
-import { Typography } from "@mui/material";
+import { Typography, Container, CircularProgress } from "@mui/material";
 
 const width = window.innerWidth
 const height = window.innerHeight
@@ -34,7 +33,8 @@ interface CarplayProps {
 }
 
 function Carplay({ receivingVideo, setReceivingVideo, settings, command, commandCounter }: CarplayProps) {
-  const [isPlugged, setPlugged] = useStatusStore(state => [state.isPlugged, state.setPlugged])
+  const isPlugged = useStatusStore(state => state.isPlugged);
+  const setPlugged = useStatusStore(state => state.setPlugged);
   const [deviceFound, setDeviceFound] = useState(false)
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -217,41 +217,10 @@ function Carplay({ receivingVideo, setReceivingVideo, settings, command, command
       ref={mainElem}
     >
       {(deviceFound === false || isLoading) && pathname === '/' && (
-        <div
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          {deviceFound === false && (
-            <div>
-              <Typography>Searching For Dongle</Typography>
-              <RotatingLines
-                strokeColor="grey"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="96"
-                visible={true}
-              />
-            </div>
-          )}
-          {deviceFound && (
-            <div>
-              <Typography>Searching For Phone</Typography>
-              <RotatingLines
-                strokeColor="grey"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="96"
-                visible={true}
-              />
-            </div>
-          )}
-        </div>
+        <Container>
+          <Typography>Searching For {deviceFound ? 'Phone' : 'Dongle'}</Typography>
+          <CircularProgress />
+        </Container>
       )}
       <div
         id="videoContainer"

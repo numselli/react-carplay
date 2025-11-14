@@ -61,7 +61,8 @@ const handleSettingsReq = (_: IpcMainEvent ) => {
   mainWindow?.webContents.send('settings', config)
 }
 
-
+// app.commandLine.appendSwitch('no-sandbox');
+app.commandLine.appendSwitch('enable-experimental-web-platform-features');
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 app.commandLine.appendSwitch('disable-webusb-security', 'true')
 console.log(app.commandLine.hasSwitch('disable-webusb-security'))
@@ -137,7 +138,7 @@ function createWindow(): void {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
   app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
-  systemPreferences.askForMediaAccess("microphone")
+  // systemPreferences.askForMediaAccess("microphone")
   mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
     details.responseHeaders!['Cross-Origin-Opener-Policy'] = ['same-origin'];
     details.responseHeaders!['Cross-Origin-Embedder-Policy'] = ['require-corp'];

@@ -18,9 +18,10 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  Slide
+  Slide,
+  Grid,
+  Container
 } from '@mui/material'
-import Grid from '@mui/material/Unstable_Grid2';
 import { TransitionProps } from '@mui/material/transitions/transition'
 import { KeyBindings } from "./KeyBindings";
 import { useCarplayStore } from "../store/store";
@@ -174,24 +175,26 @@ function Settings({ settings }: SettingsProps) {
   }, []);
   const renderSettings = () => {
     return (
-      <Grid container spacing={2}>
-        {Object.keys(activeSettings).map((k) => {
-          return renderInput[k]?.()
-        })}
-        <Grid xs={12} container>
+      <Container>
+        <Grid container spacing={2} display="flex" justifyContent="center" alignItems="center" >
+          {Object.keys(activeSettings).map((k) => {
+            return renderInput[k]?.()
+          })}
+        </Grid>
+        <Grid xs={12}>
           {microphones.length > 0 ? renderMicrophones() : null}
         </Grid>
-        <Grid xs={12} >
+        <Grid xs={12}>
           <Box>
             <Button onClick={() => saveSettings(activeSettings)}>SAVE</Button>
             <Button onClick={() => setOpenBindings(true)}>BINDINGS</Button>
           </Box>
         </Grid>
+
         <Dialog
           open={openBindings}
-          TransitionComponent={Transition}
+          slots={{transition: Transition}}
           keepMounted
-          PaperProps={{style: {minHeight: '80%', minWidth: '80%'}}}
           onClose={() => setOpenBindings(false)}
         >
           <DialogTitle>{'KeyBindings'}</DialogTitle>
@@ -199,7 +202,7 @@ function Settings({ settings }: SettingsProps) {
             <KeyBindings settings={activeSettings} updateKey={settingsChange}/>
           </DialogContent>
         </Dialog>
-      </Grid>
+      </Container>
     )
   }
 

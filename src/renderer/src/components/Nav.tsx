@@ -9,7 +9,7 @@ import { useStatusStore } from "../store/store";
 
 export default function Nav() {
   const [value, setValue] = React.useState(0);
-  const [isPlugged] = useStatusStore(state => [state.isPlugged])
+  const isPlugged = useStatusStore(state => state.isPlugged);
   const { pathname } = useLocation()
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

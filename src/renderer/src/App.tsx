@@ -61,7 +61,7 @@ function App() {
           className="App"
 
         >
-          <Nav receivingVideo={receivingVideo} settings={settings}/>
+          <Nav/>
           {settings ? <Carplay  receivingVideo={receivingVideo} setReceivingVideo={setReceivingVideo} settings={settings} command={keyCommand} commandCounter={commandCounter}/> : null}
           <Routes>
             <Route path={"/"} element={<Home />} />
